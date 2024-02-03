@@ -6,9 +6,11 @@ ini_set('memory_limit','1024M');
 $FileName  = "zip_codes.csv";
 $csvData = getCsvData($FileName);
 $result = [];
-$citiy = [];
+$city = [];
 $cities = [];
+$zipcodes = [];
 $header = $csvData[0];
+$idxCounty = array_search ('county', $header);
 $idxZipCode = array_search ('zip_code', $header);
 $idxCity = array_search ('city', $header);
 $citiesDbTool = new CitiesDbTools();
@@ -54,20 +56,46 @@ function getCities($csvData)
     return $cities;
 }
 /*
-    $truncateMakers = $makersDbTool->truncateMaker($maker);
-    $errors = [];
-    foreach ($makers as $maker){
-
-        $result = $makersDbTool->createMaker($maker);
-        if(!$result){
-            $errors[] = $maker;
-        }
-        echo "$maker\n";
+function getZipCodes($csvData)
+{
+    if (empty($csvData)) {
+        echo "Nincs adat.";
+        return false;
     }
+    $zipCode = '';
+    $header = $csvData[0];
+    $idxZipCode = array_search ('zip_code', $header);
+    foreach ($csvData as $idx => $line) {
+        if(!is_array($line)){
+            continue;
+        }
+        if ($idx == 0) {
+            continue;
+        }
+        if ($zipCode != $line[$idxZipCode]){
+            $zipCode = $line[$idxZipCode];
+            $zipcodes[] = $zipCode;
+        }
+    }
+    return $zipcodes;
+}
+*/
+
+    $truncateCities = $citiesDbTool->truncateCity();
+    $errors = [];
+    foreach ($cities as $city)
+    {
+
+        $result = $citiesDbTool->createCity($city);
+        if(!$result){
+            $errors[] = $city;
+        }
+        echo "$city\n";
+    }
+
     if (!empty($errors)){
         print_r($erorrs);
     }
-
 
 if (empty($csvData)) {
     echo "Nincs adat.";
@@ -75,16 +103,13 @@ if (empty($csvData)) {
 }
 
 
-
 $csvData = getCsvData($FileName);
-$makers = getMakers($csvData);
-foreach ($makers as $maker){
-    $makersDbTool->createMaker($maker);
+$cities = getCities($csvData);
+foreach ($cities as $city){
+    $citiesDbTool->createCity($city);
 }
-$allMakers = $makersDbTool->getAllMakers();
-$cnt = count($allMakers);
-//echo $cnt . "sor van;\n";
-$rows =  count($makers);
-print_r($rows . " sor van.")
-*/
+$allCities = $citiesDbTool->getAllCities();
+$cnt = count($allCities);
+echo $cnt . " sor van;\n";
+
 ?>

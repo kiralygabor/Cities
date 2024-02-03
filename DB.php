@@ -4,7 +4,7 @@ class DB
 {
     protected $mysqli;
 
-    function __construct($host = 'localhost', $user = 'root', $password = null, $database = 'cities')
+    function __construct($host = 'localhost', $user = 'root', $password = null, $database = 'cities_db')
     {
         $this->mysqli = mysqli_connect($host, $user, $password, $database);
         if (!$this->mysqli) {
