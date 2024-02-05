@@ -16,29 +16,18 @@ class CitiesDbTools {
     {
         $this->mysqli->close();
     }
-
     
-    function createCity($city)
+    function createCity($zipCode,$city)
     {
-        $result = $this->mysqli->query("INSERT INTO " . self::DBTABLE . " (city) VALUES ('$city')");
+        $sql = "INSERT INTO " . self::DBTABLE . " (zip_code,city) VALUES ('$zipCode','$city')";
+        $result = $this->mysqli->query( $sql );
         if (!$result) {
             echo "Hiba történt a $city beszúrása közben";
 
         }
         return $result;
     }
-
-    /*
-    function createZipCode($zipCode)
-    {
-        $result = $this->mysqli->query("INSERT INTO " . self::DBTABLE . " (zip_code) VALUES ('$zipCode')");
-        if (!$result) {
-            echo "Hiba történt a $zipCode beszúrása közben";
-
-        }
-        return $result;
-    }
-    */
+    
 /*
     function updateCity($data)
     {
@@ -52,6 +41,8 @@ class CitiesDbTools {
     return $result;
     }
 */
+
+/*
     function getCity($id)
     {   
     $result = $this->mysqli->query("SELECT * FROM " . self::DBTABLE . " WHERE id = $id");
@@ -80,7 +71,7 @@ class CitiesDbTools {
     $result = $this->mysqli->query("DELETE {self::DBTABLE} WHERE id = $id");
     return $result;
     }
-
+*/
     function truncateCity()
     {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);

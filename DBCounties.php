@@ -1,18 +1,18 @@
 <?php
-require_once 'CitiesInterface.php';
+require_once 'CountiesInterface.php';
 require_once 'DB.php';
 
-class DBCities extends DB implements CitiesInterface
+class DBCounties extends DB implements CountiesInterface
 {
 
     public function createTable(){
-        $query = 'CREATE TABLE IF NOT EXISTS cities (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, zip_code varchar(4), city varchar(50) NOT NULL, id_county int NOT NULL)';
+        $query = 'CREATE TABLE IF NOT EXISTS counties (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(50) NOT NULL);';
         return $this->mysqli->query($query);
     }
 
     public function create(array $data): ?int
     {
-        $sql = 'INSERT INTO cities (%s) VALUES (%s)';
+        $sql = 'INSERT INTO counties (%s) VALUES (%s)';
         $fields = '';
         $values = '';
         foreach ($data as $field => $value) {
@@ -34,3 +34,5 @@ class DBCities extends DB implements CitiesInterface
         return $lastInserted['id'];
     }
 }
+
+?>
