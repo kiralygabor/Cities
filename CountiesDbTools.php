@@ -32,6 +32,22 @@ class CountiesDbTools {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
+
+    public function getAllCounties()
+    {
+        $counties = [];
+
+        $sql = "SELECT * FROM counties";
+        $result = $this->mysqli->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $counties[] = $row;
+            }
+        }
+
+        return $counties;
+    }
 }
 
 ?>

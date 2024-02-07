@@ -39,7 +39,6 @@ function getCsvData($fileName)
     fclose($csvFile);
     return $lines;
 }
-
 function getCounties($csvData)
 {
     if (empty($csvData)) {
@@ -111,51 +110,23 @@ function getZipCodes($csvData)
     return $zipCodes;
 }
 
-
-/*
-    $truncateCities = $citiesDbTool->truncateCity();
-    $errors = [];
-    foreach ($cities as $city)
-    {
-
-        $result = $citiesDbTool->createCity($city);
-        if(!$result){
-            $errors[] = $city;
-        }
-        echo "$city\n";
+function truncateCityTable($citiesDbTool,$csvData){
+    $citiesDbTool->truncateCity();
+    $cities = getCities($csvData);
+    foreach ($cities as $city){
+        $citiesDbTool->createCity($city[0],$city[1]);
     }
+}
 
-    if (!empty($errors)){
-        print_r($erorrs);
+function truncateCountyTable($countiesDbTool,$csvData){
+    $countiesDbTool->truncateCounty();
+    $counties = getCounties($csvData);
+    foreach ($counties as $county){
+        $countiesDbTool->createCounty($county);
     }
-
-if (empty($csvData)) {
-    echo "Nincs adat.";
-    return false;
 }
 
-*/
-
-
-$csvData = getCsvData($fileName);
-
-$countiesDbTool->truncateCounty();
-$counties = getCounties($csvData);
-foreach ($counties as $county){
-    $countiesDbTool->createCounty($county);
-}
-
-$citiesDbTool->truncateCity();
-$cities = getCities($csvData);
-foreach ($cities as $city){
-    $citiesDbTool->createCity($city[0],$city[1]);
-    echo''. $city[0].''.$city[1];
-}
-
-/*
-$allCities = $citiesDbTool->getAllCities();
-$cnt = count($allCities);
-echo $cnt . " sor van;\n";
-*/
+truncateCityTable($citiesDbTool,$csvData);
+truncateCountyTable($countiesDbTool,$csvData);
 
 ?>
