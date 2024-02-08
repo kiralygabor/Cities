@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +15,13 @@
             <?php
             require_once('CountiesDbTools.php');
 
-            $itemRepository = new CountiesDbTools();
-            $counties = $itemRepository->getAllCounties();
+            $countiesDbTool = new CountiesDbTools();
+            $counties = $countiesDbTool->getAllCounties();
 
             foreach ($counties as $county) {
                 echo '<option value="' . $county['id'] . '">' . $county['name'] . '</option>';
             }
             ?>
-
-        </select>
     </form>
     
 </body>

@@ -27,6 +27,42 @@ class CitiesDbTools {
         }
         return $result;
     }
+
+    public function getCitiesByCountyId($countyId)
+    {
+        $cities = [];
+
+        $sql = "SELECT * FROM cities WHERE id_county = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $countyId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $cities[] = $row;
+            }
+        }
+
+        return $cities;
+    }
+
+    public function getCitiesByCityId($cityId)
+    {
+        $sql = "SELECT * FROM cities WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $cityId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row;
+            } else {
+                'Postal code is not available';
+            }
+
+    }
     
 /*
     function updateCity($data)
