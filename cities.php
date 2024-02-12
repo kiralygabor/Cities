@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('CitiesDbTools.php');
 require_once('CountiesDbTools.php');
 require_once('DBCounties.php');
@@ -100,42 +100,43 @@ function truncateCountyTable($countiesDbTool,$csvData){
     }
 }
 
-function updateCitiesWithCounties($citiesDbTool) {
-    $queries = [
-        "UPDATE cities SET cities.id_county = 1 WHERE cities.zip_code BETWEEN 6000 AND 6528;",
-        "UPDATE cities SET cities.id_county = 2 WHERE cities.zip_code BETWEEN 7300 AND 7396;",
-        "UPDATE cities SET cities.id_county = 2 WHERE cities.zip_code BETWEEN 7600 AND 7985;",
-        "UPDATE cities SET cities.id_county = 3 WHERE cities.zip_code BETWEEN 5500 AND 5948;",
-        "UPDATE cities SET cities.id_county = 4 WHERE cities.zip_code BETWEEN 3400 AND 3999;",
-        "UPDATE cities SET cities.id_county = 5 WHERE cities.zip_code BETWEEN 6600 AND 6932;",
-        "UPDATE cities SET cities.id_county = 6 WHERE cities.zip_code BETWEEN 2400 AND 2490;",
-        "UPDATE cities SET cities.id_county = 6 WHERE cities.zip_code BETWEEN 8000 AND 8157;",
-        "UPDATE cities SET cities.id_county = 7 WHERE cities.zip_code BETWEEN 9001 AND 9495;",
-        "UPDATE cities SET cities.id_county = 8 WHERE cities.zip_code BETWEEN 4000 AND 4977;",
-        "UPDATE cities SET cities.id_county = 9 WHERE cities.zip_code BETWEEN 3000 AND 3036;",
-        "UPDATE cities SET cities.id_county = 9 WHERE cities.zip_code BETWEEN 3200 AND 3399;",
-        "UPDATE cities SET cities.id_county = 10 WHERE cities.zip_code BETWEEN 5000 AND 5476;",
-        "UPDATE cities SET cities.id_county = 11 WHERE cities.zip_code BETWEEN 2500 AND 2545;",
-        "UPDATE cities SET cities.id_county = 11 WHERE cities.zip_code BETWEEN 2800 AND 2949;",
-        "UPDATE cities SET cities.id_county = 12 WHERE cities.zip_code BETWEEN 2640 AND 2699;",
-        "UPDATE cities SET cities.id_county = 12 WHERE cities.zip_code BETWEEN 3041 AND 3253;",
-        "UPDATE cities SET cities.id_county = 13 WHERE cities.zip_code BETWEEN 2000 AND 2769;",
-        "UPDATE cities SET cities.id_county = 14 WHERE cities.zip_code BETWEEN 7400 AND 7589;",
-        "UPDATE cities SET cities.id_county = 14 WHERE cities.zip_code BETWEEN 8600 AND 8739;",
-        "UPDATE cities SET cities.id_county = 15 WHERE cities.zip_code BETWEEN 4300 AND 4977;",
-        "UPDATE cities SET cities.id_county = 16 WHERE cities.zip_code BETWEEN 7020 AND 7228;",
-        "UPDATE cities SET cities.id_county = 17 WHERE cities.zip_code BETWEEN 9500 AND 9985;",
-        "UPDATE cities SET cities.id_county = 18 WHERE cities.zip_code BETWEEN 8161 AND 8598;",
-        "UPDATE cities SET cities.id_county = 19 WHERE cities.zip_code BETWEEN 8353 AND 8395;",
-        "UPDATE cities SET cities.id_county = 19 WHERE cities.zip_code BETWEEN 8741 AND 8999;"
+function updateCitiesIdCounty($csvData, $citiesDbTool){
+    $updates = [
+        [6000, 6528, 1],
+        [7300, 7396, 2],
+        [7600, 7985, 2],
+        [5500, 5948, 3],
+        [3400, 3999, 4],
+        [6600, 6932, 5],
+        [2400, 2490, 6],
+        [8000, 8157, 6],
+        [9001, 9495, 7],
+        [4000, 4977, 8],
+        [3000, 3036, 9],
+        [3200, 3399, 9],
+        [5000, 5476, 10],
+        [2500, 2545, 11],
+        [2800, 2949, 11],
+        [2640, 2699, 12],
+        [3041, 3253, 12],
+        [2000, 2769, 13],
+        [7400, 7589, 14],
+        [8600, 8739, 14],
+        [4300, 4977, 15],
+        [7020, 7228, 16],
+        [9500, 9985, 17],
+        [8161, 8598, 18],
+        [8353, 8395, 19],
+        [8741, 8999, 19]
     ];
-
-    foreach ($queries as $query) {
-        $citiesDbTool->executeQuery($query);
+    foreach ($updates as $update) {
+        list($start, $end, $idCounty) = $update;
+        $citiesDbTool->updateCitiesIdCounty($start, $end, $idCounty);
     }
 }
 
 truncateCityTable($citiesDbTool,$csvData);
 truncateCountyTable($countiesDbTool,$csvData);
-updateCitiesWithCounties($citiesDbTool);
+updateCitiesIdCounty($csvData, $citiesDbTool);
+
 ?>

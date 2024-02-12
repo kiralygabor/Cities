@@ -47,6 +47,7 @@ class CitiesDbTools {
         return $cities;
     }
 
+    
     public function getCitiesByCityId($cityId)
     {
         $sql = "SELECT * FROM cities WHERE id = ?";
@@ -113,6 +114,20 @@ class CitiesDbTools {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
         return $result;
     }
+
+    public function updateCitiesIdCounty($start, $end, $idCounty) {
+        $sql = "UPDATE cities SET id_county = $idCounty WHERE zip_code BETWEEN $start AND $end";
+        $result = $this->mysqli->query($sql);
+
+        if (!$result) {
+            echo "Error updating cities: " . $this->mysqli->error;
+            return false;
+        }
+
+        return true;
+    }
+
+    
 
 }
 

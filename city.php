@@ -24,6 +24,10 @@
             ?>
         </select>
         <input type="submit" name="submit" value="Submit">
+        <form method="post" action="cities.php">
+            <input type="text" name="needle" value="">
+            <button type="submit" name="btn-search" method="post">Keres</button>
+        </form>
     </form>
 
     <?php
