@@ -32,7 +32,7 @@ class CitiesDbTools {
     {
         $cities = [];
 
-        $sql = "SELECT * FROM cities WHERE id_county = ?";
+        $sql = "SELECT cities.*, counties.name as county FROM cities JOIN counties on cities.id_county = counties.id WHERE id_county = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $countyId);
         $stmt->execute();

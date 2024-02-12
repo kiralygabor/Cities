@@ -33,6 +33,8 @@ class DBCounties extends DB implements CountiesInterface
 
         return $lastInserted['id'];
     }
+
+   
 }
 
 ?>

@@ -26,7 +26,8 @@ class CountiesDbTools {
         }
         return $result;
     }
-
+    
+    
     function truncateCounty()
     {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
