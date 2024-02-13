@@ -21,6 +21,8 @@ $dbCounties = new DBCounties();
 $dbCities = new DBCities();
 $createCountiesTable = $dbCounties->createTable();
 $createCitiesTable = $dbCities->createTable();
+$createColumnFlag = $countiesDbTool->createColumnFlag();
+$fillColumnFlag = $countiesDbTool->fillColumnFlag();
 
 function getCsvData($fileName)
 {

@@ -26,6 +26,22 @@ class CountiesDbTools {
         }
         return $result;
     }
+
+    function createColumnFlag()
+    {
+        $result = $this->mysqli->query("ALTER TABLE " . self::DBTABLE . " ADD IF NOT EXISTS flag varchar(35);");
+        return $result;
+    }
+
+    function fillColumnFlag()
+    {
+        $flages = ["Bacs-Kiskun.png","Baranya.png","Bekes.png","Borsod-Abauj-Zemplen.png","Csongrad-Csanad.png","Fejer.png","Gyor-Moson-Sopron.png","Hajdu-Bihar.png","Heves.png","Jasz-Nagykun-Szolnok.png","Komarom-Esztergom.png","Nograd.png","Pest.png","Somogy.png","Szabolcs-Szatmar.png","Tolna.png","Vas.png","Veszprem.png","Zala.png"];
+        for ($i = 0; $i < 19; $i++) {
+            $result = $this->mysqli->query("INSERT INTO " . self::DBTABLE . "  (flag) VALUES(LOAD_FILE('Cities/pics/$flages[$i]'));");
+            return $result;
+        }
+    }
+    
     
     
     function truncateCounty()
