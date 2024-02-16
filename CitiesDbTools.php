@@ -64,51 +64,19 @@ class CitiesDbTools {
             }
 
     }
-    
-/*
-    function updateCity($data)
+
+    function deleteCityById($cityId)
     {
-    $cityName = $data['name'];
-    $result = $this->mysqli->query("UPDATE " . self::DBTABLE ." SET name = $cityName");
-    if (!$result) {
-        echo "Hiba történt a $cityName beszúrása közben";
+        $sql = "DELETE FROM " . self::DBTABLE . " WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $cityId);
+        $result = $stmt->execute();
+        if (!$result) {
+            echo "Hiba történt a város törlése közben";
+        }
         return $result;
     }
-    $city = getCitiesByName($mysqli, $cityName);
-    return $result;
-    }
-*/
 
-/*
-    function getCity($id)
-    {   
-    $result = $this->mysqli->query("SELECT * FROM " . self::DBTABLE . " WHERE id = $id");
-    $city = $result->fetch_assoc();
-    $result ->  free_result();
-    return $city;
-    }
-
-    function getCityByName($city)
-    {
-    $result =$this->mysqli->query("SELECT * FROM " . self::DBTABLE . " WHERE city = $city");
-    $city = $result->fetch_assoc();
-    return $city;
-    }
-
-    function getAllCities()
-    {
-        $result = $this->mysqli->query("SELECT * FROM " . self::DBTABLE);
-        $city = $result->fetch_all(MYSQLI_ASSOC);
-        $result ->  free_result();
-        return $city;
-    }
-
-    function delCity($id)
-    {
-    $result = $this->mysqli->query("DELETE {self::DBTABLE} WHERE id = $id");
-    return $result;
-    }
-*/
     function truncateCity()
     {
         $result = $this->mysqli->query("TRUNCATE TABLE " . self::DBTABLE);
@@ -127,8 +95,18 @@ class CitiesDbTools {
         return true;
     }
 
-    
+    public function addCity($zipCode, $city, $countyId) {
+        $sql = "INSERT INTO " . self::DBTABLE . " (city, zip_code, id_county) VALUES (?, ?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssi", $zipCode, $city, $countyId);
+        $result = $stmt->execute();
 
+        if (!$result) {
+            echo "Error adding city: " . $this->mysqli->error;
+            return false;
+        }
+
+        return true;
+    }
 }
-
 ?>
