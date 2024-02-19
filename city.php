@@ -27,8 +27,13 @@
         }
         ?>
     </select>
-    <input type="hidden" name="county_id" id="county_id" value=""> 
     <input type="submit" name="submit" value="Submit">
+        <form method="post" action="cities.php">
+            <input type="text" name="needle" value="">
+            <button type="submit" name="btn-search" method="post">Keres</button>
+        </form>
+        <br>
+    <input type="hidden" name="county_id" id="county_id" value=""> 
 </form>
 
 
@@ -59,7 +64,11 @@
         $cities = $citiesDbTool->getCitiesByCountyId($selectedCountyId);
         $population = [503825,360704,334264,642447,399012,417712,467144,527989,294609.370007,299207,189304,1278874,301429,552964,217463,253551,341317,268648];
         $CountySeat = ["Kecskemét", "Pécs", "Békéscsaba", "Miskolc", "Szeged", "Székesfehérvár", "Győr", "Debrecen", "Eger", "Szolnok", "Tatbánya", "Salgótarján", "Budapest", "Kaposvár", "Nyíregyháza", "Szekszárd", "Szombathely", "Veszprém", "Zalaegerszeg"];
-
+    
+        if (isset($_POST['btn-search'])) {
+            $needle = $_POST['needle'];
+            $cities = $citiesDbTool->searchCity($needle);
+        } 
         
 
        if (!empty($cities)) {

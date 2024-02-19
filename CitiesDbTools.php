@@ -108,5 +108,21 @@ class CitiesDbTools {
 
         return true;
     }
+
+    public function searchCity($needle)
+{
+    $cities = [];
+
+    $sql = "SELECT * FROM cities WHERE city LIKE '%$needle%' OR zip_code LIKE '%$needle%'";
+    $result = $this->mysqli->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $cities[] = $row;
+        }
+    }
+
+    return $cities;
+}
 }
 ?>
