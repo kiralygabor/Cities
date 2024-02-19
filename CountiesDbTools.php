@@ -55,8 +55,8 @@ class CountiesDbTools {
  
         public function getAllFlags()
     {
-        $allFlags = [];
- 
+        $allFlags = ["pics/Bacs-Kiskun.png","pics/Baranya.png","pics/Bekes.png","pics/Borsod-Abauj-Zemplen.png","pics/Csongrad-Csanad.png","pics/Fejer.png","pics/Gyor-Moson-Sopron.png","pics/Hajdu-Bihar.png","pics/Heves.png","pics/Jasz-Nagykun-Szolnok.png","pics/Komarom-Esztergom.png","pics/Nograd.png","pics/Pest.png","pics/Somogy.png","pics/Szabolcs-Szatmar.png","pics/Tolna.png","pics/Vas.png","pics/Veszprem.png","Zala.png"];
+        /*
         $sql = "SELECT flag FROM counties";
         $result = $this->mysqli->query($sql);
  
@@ -65,7 +65,7 @@ class CountiesDbTools {
                 $allFlags[] = $row;
             }
         }
- 
+        */
         return $allFlags;
     }
     

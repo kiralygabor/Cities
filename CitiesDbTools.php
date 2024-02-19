@@ -108,5 +108,32 @@ class CitiesDbTools {
  
     return $cities;
 }
+
+
+    function updateCity($cityId, $cityName, $zipCode) {
+        $sql = "UPDATE " . self::DBTABLE . " SET city = ?, zip_code = ? WHERE id = ?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ssi", $cityName, $zipCode, $cityId);
+        $result = $stmt->execute();
+        
+        if (!$result) {
+            echo "Hiba történt a város módosítása közben";
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public function getCityById($cityId) {
+        $query = "SELECT * FROM " . self::DBTABLE . " WHERE id = ?";
+        $stmt = $this->mysqli->prepare($query);
+        $stmt->bind_param("i", $cityId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $city = $result->fetch_assoc();
+        $stmt->close();
+        return $city;
+    }
 }
+
 ?>
