@@ -1,77 +1,107 @@
-/* Resetting default margin and padding */
-body, h1, form, select, input, table {
-    margin: 0;
-    padding: 0;
-}
-
-/* Basic styling for the body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Halvány szürke háttér */
+    color: #343a40; /* Sötét szürke szövegszín */
 }
 
-/* Centering the main content */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-/* Heading style */
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    color: black; /* Kék alcím */
 }
 
-/* Form container */
-.form-container {
-    background-color: #fff;
+form {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff; /* Fehér háttér a űrlaphoz */
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Form label style */
 label {
-    display: block;
-    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-/* Form input style */
 input[type="text"],
 select {
     width: 100%;
     padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    margin: 5px 0;
     box-sizing: border-box;
+    border: 1px solid #ced4da; /* Világos szürke szegély */
+    border-radius: 4px;
 }
 
-/* Submit button style */
-input[type="submit"] {
-    background-color: #4caf50;
-    color: #fff;
+input[type="submit"],
+.search {
+    background-color: #28a745; /* Zöld gomb */
+    color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-/* Table style */
+.search:hover {
+    background-color: #218838; /* Sötétebb zöld hover állapotban */
+}
+
+input[type="submit"]:hover {
+    background-color: #218838; /* Sötétebb zöld hover állapotban */
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-table th, table td {
+th,
+td {
+    border: 1px solid #dee2e6; /* Világosabb szürke táblakeret */
     padding: 8px;
-    border-bottom: 1px solid #ddd;
     text-align: left;
 }
 
-/* Table header style */
-table th {
-    background-color: #f2f2f2;
+th {
+    background-color: #f0f0f0; /* Halványabb szürke fejléc */
+}
+
+.flag-img {
+    max-width: 1000px;
+    max-height: 1000px;
+    display: block;
+    margin: 0 auto;
+}
+
+.data {
+    margin-top: 20px;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border: 0;
+}
+
+.data .border {
+    border: none;
+    padding: 8px;
+    text-align: left;
+}
+
+.container {
+    text-align: center;
+    border: 0;
+}
+
+.nev {
+    text-align: center;
+}
+
+.muveletek{
+    text-align: center;
 }

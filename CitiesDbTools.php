@@ -80,7 +80,7 @@ class CitiesDbTools {
     }
  
     public function addCity($zipCode, $city, $countyId) {
-        $sql = "INSERT INTO " . self::DBTABLE . " (city, zip_code, id_county) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO " . self::DBTABLE . " (zip_code, city, id_county) VALUES (?, ?, ?)";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ssi", $zipCode, $city, $countyId);
         $result = $stmt->execute();
@@ -115,15 +115,15 @@ class CitiesDbTools {
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("ssi", $cityName, $zipCode, $cityId);
         $result = $stmt->execute();
-        
+
         if (!$result) {
             echo "Hiba történt a város módosítása közben";
             return false;
         }
-        
+
         return true;
     }
-    
+
     public function getCityById($cityId) {
         $query = "SELECT * FROM " . self::DBTABLE . " WHERE id = ?";
         $stmt = $this->mysqli->prepare($query);

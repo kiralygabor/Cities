@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Városok</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
  
@@ -27,10 +28,10 @@
         }
         ?>
     </select>
-    <input type="submit" name="submit" value="Submit">
+    <input type="submit" name="submit" value="Küldés">
         <form method="post" action="cities.php">
             <input type="text" name="needle" value="">
-            <button type="submit" name="btn-search" method="post">Keres</button>
+            <button class="search" type="submit" name="btn-search" method="post">Keres</button>
         </form>
         <br>
     <input type="hidden" name="county_id" id="county_id" value="">
@@ -62,7 +63,7 @@
         $selectedCountyId = isset($_POST["countyDropdown"]) ? $_POST["countyDropdown"] : '';
        
         $cities = $citiesDbTool->getCitiesByCountyId($selectedCountyId);
-        $population = [503825,360704,334264,642447,399012,417712,467144,527989,294609.370007,299207,189304,1278874,301429,552964,217463,253551,341317,268648];
+        $population = [503825,360704,334264,642447,399012,417712,467144,527989,294609,370007,299207,189304,1278874,301429,552964,217463,253551,341317,268648];
         $CountySeat = ["Kecskemét", "Pécs", "Békéscsaba", "Miskolc", "Szeged", "Székesfehérvár", "Győr", "Debrecen", "Eger", "Szolnok", "Tatbánya", "Salgótarján", "Budapest", "Kaposvár", "Nyíregyháza", "Szekszárd", "Szombathely", "Veszprém", "Zalaegerszeg"];
         $allFlags = $countiesDbTool->getAllFlags();
        
@@ -74,13 +75,30 @@
  
         if (!empty($cities)) {
             $countyName = $cities[0]['county_name'];
-            echo '<h2>' . (!empty($countyName) ? $countyName . ' megye:' : '') . '</h2>';
+            echo '<h2 class="nev">' . (!empty($countyName) ? $countyName . ' megye:' : '') . '</h2>';
             $idxPopulation = $cities[0]['id_county'];
             $idxCountySeat = $cities[0]['id_county'];
             $idxFlag = $cities[0]['id_county'];
-            echo 'Népesség:' . $population[$idxPopulation-1] . '    Megyeszékhely:' . $CountySeat[$idxCountySeat-1] . '   Zászló:' . '<img src="' . $allFlags[$idxFlag-1] . '" alt="County Flag">';
+            echo '<div class="container">';
+            echo '            <table class = "data" >';
+            echo '    <tr>';
+            echo '        <td colspan="3" class="border"><img class="flag-img" src="' . $allFlags[$idxFlag-1] . '" alt="County Flag"></td>';
+            echo '    </tr>';
+            echo '    <tr>';
+            echo '        <td>Népesség:</td>';
+            echo '        <td>' . $population[$idxPopulation-1] . '</td>';
+            echo '    </tr>';
+            echo '    <tr>';
+            echo '        <td>Megyeszékhely:</td>';
+            echo '        <td>' . $CountySeat[$idxCountySeat-1] . '</td>';
+            echo '    </tr>';
+            echo '</table>';
+            echo '</div>';
+            
+
+            //echo 'Népesség:' . $population[$idxPopulation-1] . '    Megyeszékhely:' . $CountySeat[$idxCountySeat-1] . '   Zászló:' . '<img class = "flag-img" src="' . $allFlags[$idxFlag-1] . '" alt="County Flag">';
             echo '<table>';
-            echo '<tr><th>Irányítószám</th><th>Város</th><th>Megye</th><th>Műveletek</th></tr>';
+            echo '<tr><th>Irányítószám</th><th>Város</th><th>Megye</th><th class="muveletek" colspan="2">Műveletek</th></tr>';
             foreach ($cities as $city) {
                 echo '<tr>';
                 echo '<td>' . $city['zip_code'] . '</td>';
