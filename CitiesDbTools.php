@@ -34,19 +34,18 @@ class CitiesDbTools {
     {
         $cities = [];
 
-        $sql = "SELECT cities.*, counties.name as county FROM cities JOIN counties on cities.id_county = counties.id WHERE id_county = ?";
-        $stmt = $this->mysqli->prepare($sql);
+        $query = "SELECT cities.*, counties.name AS county_name FROM cities INNER JOIN counties ON cities.id_county = counties.id WHERE cities.id_county = ?";
+        $stmt = $this->mysqli->prepare($query);
         $stmt->bind_param("i", $countyId);
         $stmt->execute();
         $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $cities[] = $row;
-            }
+        $cities = [];
+        while ($row = $result->fetch_assoc()) {
+            $cities[] = $row;
         }
-
+        $stmt->close();
         return $cities;
+    
     }
 
     function deleteCityById($cityId)
@@ -98,7 +97,7 @@ class CitiesDbTools {
 {
     $cities = [];
 
-    $sql = "SELECT * FROM cities WHERE city LIKE '%$needle%' OR zip_code LIKE '%$needle%'";
+    $sql = "SELECT cities.*, counties.name AS county_name FROM cities LEFT JOIN counties ON cities.id_county = counties.id WHERE cities.city LIKE '%$needle%' OR cities.zip_code LIKE '%$needle%'";
     $result = $this->mysqli->query($sql);
 
     if ($result->num_rows > 0) {

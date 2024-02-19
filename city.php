@@ -71,23 +71,24 @@
         } 
         
 
-       if (!empty($cities)) {
-    echo '<h2>' . $cities[0]['county'] . ' megye:</h2>';
-    $idxPopulation = $cities[0]['id_county'];
-    $idxCountySeat = $cities[0]['id_county'];
-    echo 'Népesség:' . $population[$idxPopulation-1] . '    Megyeszékhely:' . $CountySeat[$idxCountySeat-1];
-    echo '<table>';
-    echo '<tr><th>Irányítószám</th><th>Város</th><th>Műveletek</th></tr>';
-    foreach ($cities as $city) {
-        echo '<tr>';
-        echo '<td>' . $city['zip_code'] . '</td>';
-        echo '<td>' . $city['city'] . '</td>';
-        echo '<td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="city_id" value="' . $city['id'] . '"><input type="submit" name="delete_city" value="Törlés"></form></td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-    } 
-
+        if (!empty($cities)) {
+            $countyName = $cities[0]['county_name'];
+            echo '<h2>' . (!empty($countyName) ? $countyName . ' megye:' : '') . '</h2>';
+            $idxPopulation = $cities[0]['id_county'];
+            $idxCountySeat = $cities[0]['id_county'];
+            echo 'Népesség:' . $population[$idxPopulation-1] . '    Megyeszékhely:' . $CountySeat[$idxCountySeat-1];
+            echo '<table>';
+            echo '<tr><th>Irányítószám</th><th>Város</th><th>Megye</th><th>Műveletek</th></tr>';
+            foreach ($cities as $city) {
+                echo '<tr>';
+                echo '<td>' . $city['zip_code'] . '</td>';
+                echo '<td>' . $city['city'] . '</td>';
+                echo '<td>' . $city['county_name'] . '</td>';
+                echo '<td><form method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '"><input type="hidden" name="city_id" value="' . $city['id'] . '"><input type="submit" name="delete_city" value="Törlés"></form></td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        }
     }
 
     if(isset($_POST['delete_city'])) {
