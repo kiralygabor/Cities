@@ -8,7 +8,7 @@ class CitiesDbTools {
     {
         $this->mysqli = new mysqli($host, $user, $password, $db);
         if ($this->mysqli->connect_errno){
-            throw new Exception($this->mysqli->connect_errno);
+            throw new Exception("Hiba a kapcsolódás során: " . $this->mysqli->connect_error);
         }
     }
 
@@ -19,13 +19,15 @@ class CitiesDbTools {
     
     function createCity($zipCode,$city)
     {
-        $sql = "INSERT INTO " . self::DBTABLE . " (zip_code,city) VALUES ('$zipCode','$city')";
-        $result = $this->mysqli->query( $sql );
+        $sql = "INSERT INTO " . self::DBTABLE . " (zip_code,city) VALUES (?, ?)";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("ss", $zipCode, $city);
+        $result = $stmt->execute();
         if (!$result) {
-            echo "Hiba történt a $city beszúrása közben";
-
+            echo "Hiba történt a város beszúrása közben";
+            return false;
         }
-        return $result;
+        return true;
     }
 
     public function getCitiesByCountyId($countyId)
@@ -47,24 +49,6 @@ class CitiesDbTools {
         return $cities;
     }
 
-    
-    public function getCitiesByCityId($cityId)
-    {
-        $sql = "SELECT * FROM cities WHERE id = ?";
-        $stmt = $this->mysqli->prepare($sql);
-        $stmt->bind_param("i", $cityId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            return $row;
-            } else {
-                'Postal code is not available';
-            }
-
-    }
-
     function deleteCityById($cityId)
     {
         $sql = "DELETE FROM " . self::DBTABLE . " WHERE id = ?";
@@ -73,8 +57,9 @@ class CitiesDbTools {
         $result = $stmt->execute();
         if (!$result) {
             echo "Hiba történt a város törlése közben";
+            return false;
         }
-        return $result;
+        return true;
     }
 
     function truncateCity()

@@ -99,11 +99,11 @@
     if(isset($_POST['add_city'])) {
         $newCityName = $_POST['new_city_name'];
         $newCityZip = $_POST['new_city_zip'];
-        $countyId = $selectedCountyId;
+        $countyId = $_POST['id_county'];
     
         if(!empty($newCityName) && !empty($newCityZip) && !empty($countyId)) {
-            $citiesDbTool->addCity($newCityName, $newCityZip, $countyId);
-            $cities = $citiesDbTool->getCitiesByCountyId($selectedCountyId);
+            $citiesDbTool->addCity($newCityZip, $newCityName, $countyId);
+            $cities = $citiesDbTool->getCitiesByCountyId($countyId);
         }
         else {
             echo "Kérlek töltsd ki mindkét mezőt!";
