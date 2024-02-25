@@ -10,7 +10,14 @@
  
 <h1>Városok</h1>
  
- 
+<?php
+        echo '
+            <form method="post" action="export.php">
+                <button id="btn-export" name="btn-export" title="Export to .CSV">
+                    <i class="fa fa-file-excel"></i>&nbsp;Export CSV</button>
+            </form>';
+ ?>
+
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="setCountyId()">
  
     <label for="countyDropdown">Megye:</label>

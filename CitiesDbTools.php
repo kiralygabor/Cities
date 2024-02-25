@@ -134,6 +134,13 @@ class CitiesDbTools {
         $stmt->close();
         return $city;
     }
+
+    public function getAll(): array
+    {
+        $query = "SELECT * FROM cities ORDER BY name";
+
+        return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>

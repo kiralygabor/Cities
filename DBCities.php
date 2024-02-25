@@ -33,4 +33,5 @@ class DBCities extends DB implements CitiesInterface
 
         return $lastInserted['id'];
     }
+
 }
