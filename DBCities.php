@@ -6,6 +6,8 @@ class DBCities extends DB implements CitiesInterface
 {
 
     public function createTable(){
+        $query = 'USE cities_db';
+        $this->mysqli->query($query);
         $query = 'CREATE TABLE IF NOT EXISTS cities (id int AUTO_INCREMENT PRIMARY KEY, zip_code varchar(4), city varchar(50) NOT NULL, id_county int NOT NULL)';
         return $this->mysqli->query($query);
     }

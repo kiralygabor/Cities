@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Városok</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="fontawesome/css/all.css" type="text/css">
 </head>
 <body>
  
@@ -12,10 +13,14 @@
  
 <?php
         echo '
+            <form method="post" action="cities.php">
+            <button id ="Home" name="Home"><a href="cities.php"><i class="fa fa-home" title="Kezdőlap"></i></a></button>
+            </form>
             <form method="post" action="export.php">
                 <button id="btn-export" name="btn-export" title="Export to .CSV">
                     <i class="fa fa-file-excel"></i>&nbsp;Export CSV</button>
             </form>';
+        
  ?>
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="setCountyId()">

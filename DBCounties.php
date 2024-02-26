@@ -6,8 +6,11 @@ class DBCounties extends DB implements CountiesInterface
 {
 
     public function createTable(){
+        $query = 'USE cities_db';
+        $this->mysqli->query($query);
         $query = 'CREATE TABLE IF NOT EXISTS counties (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(50) NOT NULL);';
         return $this->mysqli->query($query);
+        
     }
 
     public function create(array $data): ?int
