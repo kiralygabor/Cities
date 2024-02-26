@@ -89,7 +89,7 @@
             echo '<div class="container">';
             echo '            <table class = "data" >';
             echo '    <tr>';
-            echo '        <td colspan="3" class="border"><img class="flag-img" src="' . $allFlags[$idxFlag-1] . '" alt="County Flag"></td>';
+            echo '        <td colspan="3" class="border"><img class="flag-img" src="' . $allFlags[$idxFlag-1]['flag'] . '" alt="County Flag"></td>';
             echo '    </tr>';
             echo '    <tr>';
             echo '        <td>Népesség:</td>';

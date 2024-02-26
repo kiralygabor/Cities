@@ -137,7 +137,7 @@ class CitiesDbTools {
 
     public function getAll(): array
     {
-        $query = "SELECT * FROM cities ORDER BY name";
+        $query = "SELECT * FROM cities ORDER BY city";
 
         return $this->mysqli->query($query)->fetch_all(MYSQLI_ASSOC);
     }

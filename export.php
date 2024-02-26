@@ -1,5 +1,5 @@
 <?php
-require_once "DBCities.php";
+require_once "CitiesDbTools.php";
 header('Content-Type: application/csv; charset=UTF-8');
 header('Content-Disposition: attachment; filename="cities.csv"');
 $citiesDbTools = new CitiesDbTools();
